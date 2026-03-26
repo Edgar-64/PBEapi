@@ -5,7 +5,6 @@ import {
   Headers,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-//import { User } from './users.entity';
 
 @Controller('users')
 export class UsersController {
@@ -13,6 +12,10 @@ export class UsersController {
 
   @Get()
   getUser(@Headers('authorization') auth: string) {
+    if (!auth) {
+      throw new UnauthorizedException('Token não fornecido');
+    }
+
     const token = auth.replace('Bearer ', '');
 
     if (token !== 'meu-token') {
@@ -21,19 +24,4 @@ export class UsersController {
 
     return this.usersService.getUser();
   }
-  /*
-  @Post()
-  create(@Body() user: User) {
-    return this.usersService.create(user);
-  }
-
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(Number(id));
-  } */
 }
