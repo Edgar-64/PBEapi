@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class UsersService {
   getUser() {
     return {
-      name: 'Gabriel',
+      name: 'Edgar',
       avatar: 'https://i.pravatar.cc/150',
     };
   }
